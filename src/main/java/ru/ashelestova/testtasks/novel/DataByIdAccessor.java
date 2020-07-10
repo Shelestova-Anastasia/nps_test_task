@@ -56,8 +56,13 @@ class DataByIdAccessor implements AutoCloseable {
         String currentId;
 
         while ((currentId = randomAccessFile.readLine()) != null) {
-            dataOffsetById.put(currentId, randomAccessFile.getFilePointer());
+            dataOffsetById.put(Utils.parseId(currentId), randomAccessFile.getFilePointer());
+            randomAccessFile.readLine();
         }
+    }
+
+    int size(){
+        return dataOffsetById.size();
     }
 
     public void close() throws IOException {
