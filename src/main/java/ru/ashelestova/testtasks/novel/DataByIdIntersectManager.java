@@ -61,9 +61,10 @@ class DataByIdIntersectManager {
                     String currentId;
 
                     while ((currentId = secondFileReader.readLine()) != null) {
+                        String parsedId = Utils.parseId(currentId);
                         String secondSourceData = secondFileReader.readLine();
 
-                        String firstSourceData = firstSourceAccessor.getDataById(Utils.parseId(currentId));
+                        String firstSourceData = firstSourceAccessor.getDataById(parsedId);
                         if (firstSourceData != null) {
                             resultWriter.write(currentId);
                             resultWriter.newLine();
