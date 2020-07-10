@@ -15,7 +15,7 @@ import java.io.*;
 class DataByIdIntersectManager {
     public static void main(String[] args) {
         if (args.length < 3) {
-            log.error("Expected arguments: firstSourcePath, secondSourcePath, resultPath");
+            log.error("Arguments size error. Expected 3 args, but was {} args. Expected arguments: firstSourcePath, secondSourcePath, resultPath", args.length);
             return;
         }
 
