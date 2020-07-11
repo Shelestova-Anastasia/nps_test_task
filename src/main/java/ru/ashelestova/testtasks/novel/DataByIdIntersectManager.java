@@ -7,8 +7,8 @@ import java.io.*;
 /**
  * DataByIdIntersectManager class
  * Input: firstSourcePath, secondSourcePath, resultPath
- *
- * Any SourcePath should point to source file. File format: Odd line is ID, Even line is data by ID (in previous line)
+ * <p>
+ * Any SourcePath should point to source file. File format:   Odd line is ID (prepended with @ symbol - like @one), Even line is data by ID (in previous line)
  * resultPath - point the path for result. File will contain data from both source files. File format: for each id file will have 3 lines: ID line, First file data by ID, Second file data by Id
  */
 @Slf4j
@@ -29,9 +29,10 @@ class DataByIdIntersectManager {
 
     /**
      * Finds common ids in source files. Result file will contain data from both files by id.
-     * @param firstSourcePath first source file path. File format: Odd line is ID, Even line is data by ID (in previous line)
-     * @param secondSourcePath second source file path. File format: Odd line is ID, Even line is data by ID (in previous line)
-     * @param resultPath result file path. File will contain data from both files. File format: for each id file will have 3 lines: ID line, First file data by ID, Second file data by Id
+     *
+     * @param firstSourcePath  first source file path. File format: Odd line is ID (prepended with @ symbol - like @one), Even line is data by ID (in previous line)
+     * @param secondSourcePath second source file path. File format: Odd line is ID (prepended with @ symbol - like @one), Even line is data by ID (in previous line)
+     * @param resultPath       result file path. File will contain data from both files. File format: for each id file will have 3 lines: ID line, First file data by ID, Second file data by Id
      */
     void intersect(String firstSourcePath, String secondSourcePath, String resultPath) {
         log.info("Start intersect files: {}, {}. Result will be written to {}", firstSourcePath, secondSourcePath, resultPath);
@@ -55,7 +56,7 @@ class DataByIdIntersectManager {
 
         long intersectIdsNumber = 0;
 
-        try (DataByIdAccessor firstSourceAccessor = new DataByIdAccessor(firstSourceFile)) {
+        try (DataByIdAccessor firstSourceAccessor = new DataByIdAccessor(firstSourceFile.getAbsolutePath())) {
             try (BufferedReader secondFileReader = new BufferedReader(new FileReader(secondSourceFile))) {
                 try (BufferedWriter resultWriter = new BufferedWriter(new FileWriter(resultPath))) {
                     String currentId;
